@@ -54,4 +54,24 @@ public class SetData {
 
 				});
 	}
+
+	public void resetTokens(final Player p) {
+		Bukkit.getScheduler().runTaskAsynchronously(Tokens.getInstance(),
+				new Runnable() {
+					public void run() {
+						try {
+							PreparedStatement sql = mysql
+									.getCurrentConnection()
+									.prepareStatement(
+											"INSERT INTO `mTokensData` (UUID, Tokens) VALUES (?,?) ON DUPLICATE KEY UPDATE Tokens = ?");
+							sql.setString(1, p.getUniqueId().toString());
+							sql.setInt(2, 0);
+							sql.setInt(3, 0);
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+	}
+
 }

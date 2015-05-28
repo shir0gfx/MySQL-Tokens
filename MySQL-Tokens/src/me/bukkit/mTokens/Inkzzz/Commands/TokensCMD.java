@@ -27,26 +27,62 @@ public class TokensCMD implements CommandExecutor {
 							+ Chatter.arrow() + " &7You have &e"
 							+ fd.getTokens(p) + " &7tokens."));
 					return true;
-				} else if (args.length == 3) {
-					if (th.isInt(args[2])) {
-						Player target = Bukkit.getPlayer(args[1]);
-						int tokens = Integer.valueOf(args[2]);
-						if (args[0].equalsIgnoreCase("give")) {
+				} else if (args.length == 2) {
+					if (p.hasPermission("tokens.reset")) {
+						if (args[0].equalsIgnoreCase("reset")) {
+							Player target = Bukkit.getPlayer(args[1]);
 							if (target != null) {
-								sd.giveTokens(target, tokens);
-								th.giveTokensMSG(p, target, tokens);
-							}
-						} else if (args[0].equalsIgnoreCase("take")) {
-							if (target != null) {
-								sd.takeTokens(p, tokens);
-								th.takeTokensMSG(p, target, tokens);
+								sd.resetTokens(p);
+								p.sendMessage(Chatter.color("&6&lTokens &8&l"
+										+ Chatter.arrow()
+										+ " &7You have reset &e"
+										+ target.getName() + "'s &7tokens!"));
+								return true;
 							}
 						}
 					} else
-						p.sendMessage(Chatter.color("&c&lError &8&l"
-								+ Chatter.arrow() + " &e" + args[2]
-								+ " &7isn't a number!"));
+						th.noperm(p);
+				} else if (args.length == 3) {
+					if (p.hasPermission("tokens.admin")) {
+						if (th.isInt(args[2])) {
+							Player target = Bukkit.getPlayer(args[1]);
+							int tokens = Integer.valueOf(args[2]);
+							if (args[0].equalsIgnoreCase("give")) {
+								if (target != null) {
+									sd.giveTokens(target, tokens);
+									th.giveTokensMSG(p, target, tokens);
+								}
+							} else if (args[0].equalsIgnoreCase("take")) {
+								if (target != null) {
+									sd.takeTokens(target, tokens);
+									th.takeTokensMSG(p, target, tokens);
+								}
+							}
+						} else
+							p.sendMessage(Chatter.color("&c&lError &8&l"
+									+ Chatter.arrow() + " &e" + args[2]
+									+ " &7isn't a number!"));
+					} else
+						th.noperm(p);
 				}
+			}
+		} else {
+			if (args.length == 3) {
+				if (th.isInt(args[2])) {
+					Player target = Bukkit.getPlayer(args[1]);
+					int tokens = Integer.valueOf(args[2]);
+					if (args[0].equalsIgnoreCase("give")) {
+						if (target != null) {
+							sd.giveTokens(target, tokens);
+						}
+					} else if (args[0].equalsIgnoreCase("take")) {
+						if (target != null) {
+							sd.takeTokens(target, tokens);
+						}
+					}
+				} else
+					sender.sendMessage(Chatter.color("&e" + args[2]
+							+ " &7isn't a number!"));
 			}
 		}
 		return false;

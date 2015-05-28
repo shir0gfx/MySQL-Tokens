@@ -35,4 +35,10 @@ public class TokensHandler {
 		return;
 	}
 
+	public void noperm(Player p) {
+		p.sendMessage(Chatter.color("&c&lPermission &8&l" + Chatter.arrow()
+				+ " &7You don't have permission!"));
+		return;
+	}
+
 }
