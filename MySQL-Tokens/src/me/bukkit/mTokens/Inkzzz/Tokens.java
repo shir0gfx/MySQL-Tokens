@@ -1,13 +1,16 @@
 package me.bukkit.mTokens.Inkzzz;
 
+import me.bukkit.mTokens.Inkzzz.API.MySQLTokensAPI;
 import me.bukkit.mTokens.Inkzzz.Commands.TokensCMD;
 import me.bukkit.mTokens.Inkzzz.Listeners.Join;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Tokens extends JavaPlugin {
 
+	private MySQLTokensAPI api = new MySQLTokensAPI();
 	private MySQL mysql = new MySQL();
 	
 	private static Tokens instance;
@@ -35,5 +38,7 @@ public class Tokens extends JavaPlugin {
 	}
 	
 	public static Tokens getInstance() { return instance; }
+	
+	public MySQLTokensAPI getAPI() { return api; }
 	
 }
