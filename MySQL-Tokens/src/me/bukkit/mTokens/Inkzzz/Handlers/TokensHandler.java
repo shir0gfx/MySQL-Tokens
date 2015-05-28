@@ -40,5 +40,21 @@ public class TokensHandler {
 				+ " &7You don't have permission!"));
 		return;
 	}
+	
+	public void playerOffline(Player p, String s) {
+		p.sendMessage(Chatter.color("&c&lError &8&l" + Chatter.arrow() + " &e" + s + " &7isn't online."));
+	}
+	
+	public void tokensHelp(Player p) {
+		p.sendMessage(Chatter.color("&c&m====================================="));
+		p.sendMessage(Chatter.color("&7> &6&lTokens&7:"));
+		p.sendMessage(Chatter.color(" "));
+		p.sendMessage(Chatter.color("&7> &e/tokens"));
+		p.sendMessage(Chatter.color("&7> &e/tokens reset <player>"));
+		p.sendMessage(Chatter.color("&7> &e/tokens give <player> <amount>"));
+		p.sendMessage(Chatter.color("&7> &e/tokens take <player> <amount>"));
+		p.sendMessage(Chatter.color(" "));
+		p.sendMessage(Chatter.color("&c&m====================================="));
+	}
 
 }

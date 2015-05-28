@@ -38,8 +38,10 @@ public class TokensCMD implements CommandExecutor {
 										+ " &7You have reset &e"
 										+ target.getName() + "'s &7tokens!"));
 								return true;
-							}
-						}
+							} else
+								th.playerOffline(p, args[1]);
+						} else
+							th.tokensHelp(p);
 					} else
 						th.noperm(p);
 				} else if (args.length == 3) {
@@ -51,12 +53,14 @@ public class TokensCMD implements CommandExecutor {
 								if (target != null) {
 									sd.giveTokens(target, tokens);
 									th.giveTokensMSG(p, target, tokens);
-								}
+								} else
+									th.playerOffline(p, args[1]);
 							} else if (args[0].equalsIgnoreCase("take")) {
 								if (target != null) {
 									sd.takeTokens(target, tokens);
 									th.takeTokensMSG(p, target, tokens);
-								}
+								} else
+									th.playerOffline(p, args[1]);
 							}
 						} else
 							p.sendMessage(Chatter.color("&c&lError &8&l"

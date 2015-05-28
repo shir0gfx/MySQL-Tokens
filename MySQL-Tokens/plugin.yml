@@ -5,3 +5,9 @@ author: [ Inkzzz ]
 commands:
   tokens:
     description: Tokens Commands!
+
+permissions:
+  tokens.admin:
+    description: Allows player to take and give tokens!
+  tokens.reset:
+    description: Allows the player reset tokens!
