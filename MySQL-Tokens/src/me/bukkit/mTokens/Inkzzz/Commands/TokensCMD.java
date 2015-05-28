@@ -32,7 +32,7 @@ public class TokensCMD implements CommandExecutor {
 						if (args[0].equalsIgnoreCase("reset")) {
 							Player target = Bukkit.getPlayer(args[1]);
 							if (target != null) {
-								sd.resetTokens(p);
+								sd.resetTokens(target);
 								p.sendMessage(Chatter.color("&6&lTokens &8&l"
 										+ Chatter.arrow()
 										+ " &7You have reset &e"
@@ -71,7 +71,14 @@ public class TokensCMD implements CommandExecutor {
 				}
 			}
 		} else {
-			if (args.length == 3) {
+			if (args.length == 2) {
+				if (args[0].equalsIgnoreCase("reset")) {
+					Player target = Bukkit.getPlayer(args[1]);
+					if (target != null) {
+						sd.resetTokens(target);
+					}
+				}
+			} else if (args.length == 3) {
 				if (th.isInt(args[2])) {
 					Player target = Bukkit.getPlayer(args[1]);
 					int tokens = Integer.valueOf(args[2]);
