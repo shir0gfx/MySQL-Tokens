@@ -4,7 +4,6 @@ import me.bukkit.mTokens.Inkzzz.API.MySQLTokensAPI;
 import me.bukkit.mTokens.Inkzzz.Commands.TokensCMD;
 import me.bukkit.mTokens.Inkzzz.Listeners.Join;
 
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,7 +1,7 @@
 package me.bukkit.mTokens.Inkzzz.Commands;
 
 import me.bukkit.mTokens.Inkzzz.FetchData;
-import me.bukkit.mTokens.Inkzzz.SetData;
+import me.bukkit.mTokens.Inkzzz.Tokens;
 import me.bukkit.mTokens.Inkzzz.Handlers.TokensHandler;
 import me.bukkit.mTokens.Inkzzz.Utils.Chatter;
 
@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 
 public class TokensCMD implements CommandExecutor {
 
-	SetData sd = new SetData();
 	FetchData fd = new FetchData();
 	TokensHandler th = new TokensHandler();
 
@@ -32,7 +31,8 @@ public class TokensCMD implements CommandExecutor {
 						if (args[0].equalsIgnoreCase("reset")) {
 							Player target = Bukkit.getPlayer(args[1]);
 							if (target != null) {
-								sd.resetTokens(target);
+								Tokens.getInstance().getAPI()
+										.resetTokens(target);
 								p.sendMessage(Chatter.color("&6&lTokens &8&l"
 										+ Chatter.arrow()
 										+ " &7You have reset &e"
@@ -51,14 +51,28 @@ public class TokensCMD implements CommandExecutor {
 							int tokens = Integer.valueOf(args[2]);
 							if (args[0].equalsIgnoreCase("give")) {
 								if (target != null) {
-									sd.giveTokens(target, tokens);
+									Tokens.getInstance().getAPI()
+											.giveTokens(target, tokens);
 									th.giveTokensMSG(p, target, tokens);
 								} else
 									th.playerOffline(p, args[1]);
 							} else if (args[0].equalsIgnoreCase("take")) {
 								if (target != null) {
-									sd.takeTokens(target, tokens);
+									Tokens.getInstance().getAPI()
+											.takeTokens(target, tokens);
 									th.takeTokensMSG(p, target, tokens);
+								} else
+									th.playerOffline(p, args[1]);
+							} else if (args[0].equalsIgnoreCase("add")) {
+								if (target != null) {
+									Tokens.getInstance().getAPI()
+											.addTokens(p, tokens);
+									target.sendMessage(Chatter
+											.color("&6&lTokens &8&l"
+													+ Chatter.arrow()
+													+ " &e"
+													+ tokens
+													+ " &7have been added to your account."));
 								} else
 									th.playerOffline(p, args[1]);
 							}
@@ -74,22 +88,25 @@ public class TokensCMD implements CommandExecutor {
 			if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("reset")) {
 					Player target = Bukkit.getPlayer(args[1]);
-					if (target != null) {
-						sd.resetTokens(target);
-					}
+					if (target != null)
+						Tokens.getInstance().getAPI().resetTokens(target);
 				}
 			} else if (args.length == 3) {
 				if (th.isInt(args[2])) {
 					Player target = Bukkit.getPlayer(args[1]);
 					int tokens = Integer.valueOf(args[2]);
 					if (args[0].equalsIgnoreCase("give")) {
-						if (target != null) {
-							sd.giveTokens(target, tokens);
-						}
+						if (target != null)
+							Tokens.getInstance().getAPI()
+									.giveTokens(target, tokens);
 					} else if (args[0].equalsIgnoreCase("take")) {
-						if (target != null) {
-							sd.takeTokens(target, tokens);
-						}
+						if (target != null)
+							Tokens.getInstance().getAPI()
+									.takeTokens(target, tokens);
+					} else if (args[0].equalsIgnoreCase("add")) {
+						if (target != null)
+							Tokens.getInstance().getAPI()
+									.addTokens(target, tokens);
 					}
 				} else
 					sender.sendMessage(Chatter.color("&e" + args[2]
@@ -98,5 +115,4 @@ public class TokensCMD implements CommandExecutor {
 		}
 		return false;
 	}
-
 }
